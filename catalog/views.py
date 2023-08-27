@@ -14,6 +14,10 @@ def index(request):
     return render(request, 'catalog/product_list.html', context)
 
 
+def contacts(request):
+    return render(request, 'catalog/contacts.html')
+
+
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
