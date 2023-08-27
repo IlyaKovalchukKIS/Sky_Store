@@ -67,8 +67,8 @@
                             </a>
 
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Все блоги</a></li>
-                                <li><a href="#"
+                                <li><a class="dropdown-item" href="{% url 'blog:blog_list' %}">Все блоги</a></li>
+                                <li><a href="{% url 'blog:blog_create' %}"
                                        class="dropdown-item">Добавить блог</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
