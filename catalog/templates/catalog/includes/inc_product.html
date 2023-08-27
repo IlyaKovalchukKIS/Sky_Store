@@ -13,13 +13,17 @@
                 <li>{{ object.description }}</li>
             </ul>
             <div class="card-body">
-                {% if object.is_active %}
-                <h6>Номер версии: {{ object.version }}</h6>
-                <h6>Название версии: {{ object.name_version }}</h6>
-                {% else %}
-                <h6>Номер версии: нет информации</h6>
-                <h6>Название версии: нет информации</h6>
-                {% endif %}
+                <h6>Номер версии: {% if object.is_active %}
+                    {{ object.version }}
+                    {% else %}
+                    нет информации
+                    {% endif %}</h6>
+                <h6>Название версии: {% if object.is_active %}
+                    {{ object.name_version }}
+                    {% else %}
+                    нет информации
+                    {% endif %}</h6>
+
             </div>
             <a type="button" class="w-100 btn btn-lg btn-primary mt-3 mb-4">Купить за {{ object.price}} руб.</a>
         </div>
