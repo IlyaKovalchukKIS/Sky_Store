@@ -14,7 +14,7 @@ class StyleMixin:
 class UserRegisterForm(StyleMixin, UserCreationForm):
     class Meta:
         model = User
-        fields = ('email', 'password1', 'password2',)
+        fields = ('email',  'country', 'password1', 'password2',)
 
 
 class UserProfileForm(StyleMixin, UserChangeForm):
