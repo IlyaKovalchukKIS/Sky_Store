@@ -1,0 +1,24 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="blog-post">
+                <h1 class="blog-post-title">{{ object.title }}</h1>
+
+                <p class="blog-post-meta">Дата публикации: {{ object.date_create }}</p>
+
+                <img src="{{ object.preview | my_media }}" alt="{{ post.title }} Preview" class="img-fluid mb-3">
+
+                <p class="blog-post-body">{{ object.body }}</p>
+
+                <p class="blog-post-slug">Slug: {{ object.slug }}</p>
+                <p class="blog-post-published">Опубликовано: {% if object.is_published %}Да{% else %}Нет{% endif %}</p>
+                <p class="blog-post-views">Количество просмотров: {{ object.view_count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

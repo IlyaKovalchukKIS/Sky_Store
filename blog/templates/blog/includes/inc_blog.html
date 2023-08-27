@@ -1,0 +1,75 @@
+{% load my_tags %}
+<style>
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .product-card {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    .product-image {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .product-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 16px;
+    }
+
+    .product-price {
+      font-size: 24px;
+    }
+
+    .product-buttons {
+      margin-top: 10px;
+    }
+
+    .product-buttons a {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-right: 5px;
+    }
+
+    .buy-button {
+      background-color: #2ecc71;
+    }
+
+    .view-button {
+      background-color: #f39c12;
+    }
+
+    .edit-button {
+      background-color: #e67e22;
+    }
+
+    .delete-button {
+      background-color: #c0392b;
+    }
+</style>
+
+    <div class="product-container col-6">
+        <div class="product-card">
+            <img src="{{ object.preview | my_media }}" alt="{{ object.title }}" class="product-image">
+            <h3 class="product-title">{{ object.title }}</h3>
+            <p class="product-body">{{ object.body }}</p>
+            <div class="product-buttons">
+                <a href="{% url 'blog:blog_view' object.pk %}" class="view-button">Посмотреть</a>
+                <a href="{% url 'blog:blog_edit' object.pk %}" class="edit-button">Редактировать</a>
+                <a href="{% url 'blog:blog_delete' object.pk %}" class="delete-button">Удалить</a>
+            </div>
+        </div>
+    </div>
