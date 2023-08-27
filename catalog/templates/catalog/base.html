@@ -23,10 +23,58 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
-                    <li><a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a></li>
-                    <li><a href="#" class="nav-link px-2 link-body-emphasis">Customers</a></li>
-                    <li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
+                    <li><a href="{% url 'catalog:index' %}" class="nav-link px-2 link-secondary">Главная</a></li>
+                    <li><a href="#" class="nav-link px-2 link-body-emphasis">Контакты</a></li>
+
+                    <li>
+                        <div class="dropdown">
+                            <a class="nav-link px-2 link-body-emphasis dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Категории
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'catalog:category_list' %}">Все категории</a>
+                                </li>
+                                <li><a href="{% url 'catalog:category_create' %}"
+                                       class="dropdown-item">Добавить категорию</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="dropdown">
+                            <a class="nav-link px-2 link-body-emphasis dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Товары
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'catalog:category_list' %}">Все категории</a></li>
+                                <li><a href="{% url 'catalog:product_create' %}"
+                                       class="dropdown-item">Добавить товар</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="dropdown">
+                            <a class="nav-link px-2 link-body-emphasis dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Блоги
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Все блоги</a></li>
+                                <li><a href="#"
+                                       class="dropdown-item">Добавить блог</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -39,85 +87,94 @@
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu text-small">
-                        <li><a class="dropdown-item" href="#">New project...</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Профиль</a></li>
+                        <li><a class="dropdown-item" href="#">Настройки</a></li>
+                        <li><a class="dropdown-item" href="#"></a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        <li><a class="dropdown-item" href="#">Выйти</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </header>
-    <div class="container">
-        {% block content %}
+    <div class="container text-center">
+        <main class="row">
+            {% block content %}
 
-        {% endblock %}
+            {% endblock %}
+        </main>
     </div>
-    <div class="container">
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Accordion Item #1
-                    </button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate
-                        the <code>.accordion-flush</code> class. This is the first item's accordion body.
+    <footer class="py-3 my-4">
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-10 fw-normal text-body-emphasis">F.A.Q.</h1>
+            <div class="container">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                Как купить?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Оплата происходит онлайн, через личный кабинет. Для этого вам
+                                нужно всего-то
+                                зарегестрироваться на нашем сайте!
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        Accordion Item #2
-                    </button>
-                </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate
-                        the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine
-                        this being filled with some actual content.
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                Какая гарантия?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Гарантия на наши товары действует в течении одного года, нам
+                                важен ваш комформ и
+                                бозопасность.
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseThree" aria-expanded="false"
-                            aria-controls="flush-collapseThree">
-                        Accordion Item #3
-                    </button>
-                </h2>
-                <div id="flush-collapseThree" class="accordion-collapse collapse"
-                     data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate
-                        the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more
-                        exciting happening here in terms of content, but just filling up the space to make it look, at
-                        least at first glance, a bit more representative of how this would look in a real-world
-                        application.
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                Как заказать доставку?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">Доставку действует по всей России. Оформиить ее можно при оплате
+                                заказа.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <footer>
-        <div class="container">
-            <footer class="py-3 my-4">
-                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-                </ul>
-                <p class="text-center text-body-secondary">© 2023 Company, Inc</p>
-            </footer>
-        </div>
+        <footer>
+            <div class="container">
+                <footer class="py-3 my-4">
+                    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                    </ul>
+                    <p class="text-center text-body-secondary">© 2023 Company, Inc</p>
+                </footer>
+            </div>
+        </footer>
     </footer>
 </main>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"
