@@ -69,7 +69,7 @@ class ProductDetailView(DetailView):
         active_version: Version = Version.objects.filter(product=self.object, is_active=True).last()
         if active_version:
             context['number'] = active_version.version
-            context['name_version'] = active_version.name
+            context['name_version'] = active_version.name_version
         else:
             context['number'] = None
             context['name_version'] = None
