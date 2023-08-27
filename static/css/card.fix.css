@@ -1,0 +1,14 @@
+.card-fixed-size {
+    width: 500px;
+    height: 500px;
+    /* Добавьте другие стили здесь */
+}
+
+.category-button {
+  margin-left: 10px; /* Может быть изменено в зависимости от требуемого отступа */
+}
+
+.card .btn {
+  padding-left: 10px;   /* Внутренний отступ слева */
+  padding-right: 10px;  /* Внутренний отступ справа */
+}
