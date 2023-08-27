@@ -1,0 +1,27 @@
+{% load static %}
+{% load my_tags %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/card.fix.css' %}">
+<div class="container col-5 text-center">
+    <div class="card mb-4 rounded-3 shadow-sm card-fixed-size">
+        <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">{{ object.name }}</h4>
+        </div>
+        <div class="card-body">
+            <img src="{{ object.preview | my_media }}" width="200" height="100" class="img-fluid"/>
+            <ul class="list-unstyled mt-3 mb-4">
+                <li>{{ object.description }}</li>
+            </ul>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'catalog:category_view' object.pk %}" type="button" class="w-90 btn btn-lg btn-dark mt-3 mb-4">Перейти к товаром категории</a>
+        </div>
+        <footer>
+            <div class="card-footer">
+                <div class="product-buttons">
+                    <a href="{% url 'catalog:category_edit' object.pk %}" class="btn btn-success">Редактировать</a>
+                    <a href="{% url 'catalog:category_delete' object.pk %}" class="btn btn-success">Удалить</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
