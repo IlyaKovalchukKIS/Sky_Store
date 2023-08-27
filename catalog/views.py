@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
-from catalog.models import Product, Category
+from catalog.models import Product, Category, Version
 from catalog.forms import ProductForm, CategoryForm
 from django.urls import reverse_lazy
 
@@ -44,9 +44,37 @@ class ProductListView(ListView):
         category_id = self.kwargs.get('pk')
         return Product.objects.filter(category_id=category_id)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        for product in context['object_list']:
+            active_version: Version = Version.objects.filter(product=product, is_active=True).last()
+            if active_version:
+                product.is_active = active_version.is_active
+                product.version = active_version.version
+                product.name_version = active_version.name_version
+            else:
+                product.version = None
+                product.name_version = None
+
+        return context
+
 
 class ProductDetailView(DetailView):
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        active_version: Version = Version.objects.filter(product=self.object, is_active=True).last()
+        if active_version:
+            context['number'] = active_version.version
+            context['name_version'] = active_version.name
+        else:
+            context['number'] = None
+            context['name_version'] = None
+
+        return context
 
 
 class ProductUpdateView(UpdateView):

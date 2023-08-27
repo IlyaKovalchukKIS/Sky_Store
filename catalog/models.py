@@ -11,7 +11,7 @@ class Category(models.Model):
     date_last_change = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения')
 
     def __str__(self):
-        return f'{self.name} {self.date_creation}'
+        return f'{self.name}'
 
     class Meta:
         verbose_name = 'категория'
@@ -39,11 +39,11 @@ class Product(models.Model):
 class Version(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='товар')
     version = models.IntegerField(verbose_name='номер версии')
-    name = models.CharField(max_length=100, verbose_name='название версии')
+    name_version = models.CharField(max_length=100, verbose_name='название версии')
     is_active = models.BooleanField(default=True, verbose_name='активна')
 
     def __str__(self):
-        return f'{self.name} {self.version} {self.is_active}'
+        return f'{self.product.name} {self.version} {self.is_active}'
 
     class Meta:
         verbose_name = 'версия'
