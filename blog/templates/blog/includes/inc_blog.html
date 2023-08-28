@@ -65,11 +65,11 @@
     <div class="product-card">
         <img src="{{ object.preview | my_media }}" alt="{{ object.title }}" class="product-image">
         <h3 class="product-title">{{ object.title }}</h3>
-        <p class="product-body">{{ object.body }}</p>
+        <p class="product-body">{{ object.body|slice:':500' }}...</p>
 
         <div class="product-buttons">
             <a href="{% url 'blog:blog_view' object.pk %}" class="view-button">Посмотреть</a>
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and user == object.user %}
             <a href="{% url 'blog:blog_edit' object.pk %}" class="edit-button">Редактировать</a>
             <a href="{% url 'blog:blog_delete' object.pk %}" class="delete-button">Удалить</a>
             {% else %}
