@@ -60,9 +60,15 @@ class BlogDetailView(DetailView):
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('title', 'body', 'preview',)
+    form_class = BlogForm
+    template_name = 'blog/blog_form.html'
+    success_url = reverse_lazy('blog:blog_list')
 
-    # success_url = reverse_lazy('blog:blog_list')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.request.user
+        Blog.user = user_id
+        return context
 
     def form_valid(self, form):
         if form.is_valid():
