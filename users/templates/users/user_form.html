@@ -10,6 +10,7 @@
                     <h3 class="card-title">Профиль</h3>
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <a href="{% url 'users:generate_new_password' %}" class="btn btn-danger">Сгенерировать пароль</a>
                     <button type="submit" class="btn btn-success">
                         Сохранить
                     </button>
