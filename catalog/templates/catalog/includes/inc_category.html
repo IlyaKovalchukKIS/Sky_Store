@@ -13,8 +13,10 @@
             </ul>
         </div>
         <div class="text-center">
-            <a href="{% url 'catalog:category_view' object.pk %}" type="button" class="w-90 btn btn-lg btn-dark mt-3 mb-4">Перейти к товаром категории</a>
+            <a href="{% url 'catalog:category_view' object.pk %}" type="button"
+               class="w-90 btn btn-lg btn-dark mt-3 mb-4">Перейти к товаром категории</a>
         </div>
+        {% if user.is_authenticated %}
         <footer>
             <div class="card-footer">
                 <div class="product-buttons">
@@ -23,5 +25,7 @@
                 </div>
             </div>
         </footer>
+        {% else %}
+        {% endif %}
     </div>
 </div>

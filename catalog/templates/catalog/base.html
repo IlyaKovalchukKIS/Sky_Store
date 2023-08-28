@@ -27,9 +27,10 @@
                     <li><a href="{% url 'catalog:index' %}" class="nav-link px-2 link-secondary">Главная</a></li>
                     <li><a href="{% url 'catalog:contacts' %}" class="nav-link px-2 link-body-emphasis">Контакты</a>
                     </li>
-
+                    {% if user.is_authenticated %}
                     <li>
                         <div class="dropdown">
+
                             <a class="nav-link px-2 link-body-emphasis dropdown-toggle" href="#" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 Категории
@@ -44,7 +45,11 @@
                             </ul>
                         </div>
                     </li>
+                    {% else %}
+                    <li><a href="{% url 'catalog:category_list' %}" class="nav-link px-2 link-body-emphasis">Все категории</a>
+                    {% endif %}
 
+                    {% if user.is_authenticated %}
                     <li>
                         <div class="dropdown">
                             <a class="nav-link px-2 link-body-emphasis dropdown-toggle" href="#" role="button"
@@ -61,7 +66,10 @@
                             </ul>
                         </div>
                     </li>
+                    {% else %}
+                    {% endif %}
 
+                    {% if user.is_authenticated %}
                     <li>
                         <div class="dropdown">
                             <a class="nav-link px-2 link-body-emphasis dropdown-toggle" href="#" role="button"
@@ -71,12 +79,18 @@
 
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'blog:blog_list' %}">Все блоги</a></li>
+
                                 <li><a href="{% url 'blog:blog_create' %}"
                                        class="dropdown-item">Добавить блог</a></li>
+
+
                                 <li><a class="dropdown-item" href="#"></a></li>
                             </ul>
                         </div>
                     </li>
+                    {% else %}
+                    <li><a href="{% url 'blog:blog_list' %}" class="nav-link px-2 link-body-emphasis">Все блоги</a>
+                    {% endif %}
 
                 </ul>
 
@@ -90,7 +104,8 @@
                         {% if user.avatar %}
                         <img src="{{ user.avatar | my_media }}" alt="mdo" width="32" height="32" class="rounded-circle">
                         {% else %}
-                        <img src="{% static 'default/img.png' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+                        <img src="{% static 'default/img.png' %}" alt="mdo" width="32" height="32"
+                             class="rounded-circle">
 
                         {% endif %}
                     </a>
