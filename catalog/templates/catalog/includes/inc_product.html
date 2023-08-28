@@ -1,43 +1,98 @@
 {% load static %}
 {% load my_tags %}
+<style>
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .product-card {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/card.fix.css' %}">
-<div class="container col-5 text-center">
-    <div class="card mb-3 rounded-3 shadow-sm">
-        <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">{{ object.name }}</h4>
-        </div>
-        <div class="card-body">
-            <img src="{{ object.preview | my_media }}" width="150" height="100" class="img-fluid"/>
-            <ul class="list-unstyled mt-3 mb-4">
-                <li>{{ object.description|slice:':50' }}...</li>
-            </ul>
-            <div class="card-body">
-                <h6>Номер версии: {% if object.is_active %}
-                    {{ object.version }}
-                    {% else %}
-                    нет информации
-                    {% endif %}</h6>
-                <h6>Название версии: {% if object.is_active %}
-                    {{ object.name_version }}
-                    {% else %}
-                    нет информации
-                    {% endif %}</h6>
+    .product-image {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
 
-            </div>
-            <a type="button" class="w-100 btn btn-lg btn-primary mt-3 mb-4">Купить за {{ object.price}} руб.</a>
-        </div>
-        {% if user.is_authenticated %}
+    .product-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 16px;
+    }
+
+    .product-price {
+      font-size: 24px;
+    }
+
+    .product-buttons {
+      margin-top: 10px;
+    }
+
+    .product-buttons a {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-right: 5px;
+    }
+
+    .buy-button {
+      background-color: #2ecc71;
+    }
+
+    .view-button {
+      background-color: #f39c12;
+    }
+
+    .edit-button {
+      background-color: #e67e22;
+    }
+
+    .delete-button {
+      background-color: #c0392b;
+    }
+</style>
+
+<div class="product-container col-6">
+    <div class="product-card">
+        <img src="{{ object.preview | my_media }}" alt="{{ object.title }}" class="product-image">
+        <h3 class="product-title">{{ object.name }}</h3>
+        <p class="product-body">{{ object.description|slice:':50' }}...</p>
+        <p class="product-body">
+            Номер версии: {% if object.is_active %}
+            {{ object.version }}
+            {% else %}
+            нет информации
+            {% endif %}
+        </p>
+        <p class="product-body">
+            Название версии: {% if object.is_active %}
+            {{ object.name_version }}
+            {% else %}
+            нет информации
+            {% endif %}
+        </p>
         <footer>
             <div class="card-footer">
                 <div class="product-buttons">
-                    <a href="{% url 'catalog:product_view' object.pk %}" class="btn btn-success">Посмотреть</a>
-                    <a href="{% url 'catalog:product_edit' object.pk %}" class="btn btn-success">Редактировать</a>
-                    <a href="{% url 'catalog:product_delete' object.pk %}" class="btn btn-success">Удалить</a>
+                    <a type="button" class="buy-button">Купить за {{ object.price}} руб.</a>
+                    <a href="{% url 'catalog:product_view' object.pk %}" class="view-button">Посмотреть</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'catalog:product_edit' object.pk %}" class="edit-button">Редактировать</a>
+                    <a href="{% url 'catalog:product_delete' object.pk %}" class="delete-button">Удалить</a>
+                    {% else %}
+                    {% endif %}
                 </div>
             </div>
         </footer>
-        {% else %}
-        {% endif %}
     </div>
 </div>
