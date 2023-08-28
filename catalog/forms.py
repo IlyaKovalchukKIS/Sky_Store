@@ -21,10 +21,9 @@ class StyleMixin:
 
 
 class ProductForm(StyleMixin, forms.ModelForm):
-
     class Meta:
         model = Product
-        fields = '__all__'
+        exclude = ('date_create', 'view_count', 'user',)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -38,7 +37,6 @@ class ProductForm(StyleMixin, forms.ModelForm):
 
 
 class CategoryForm(StyleMixin, forms.ModelForm):
-
     class Meta:
         model = Category
         fields = '__all__'
