@@ -27,6 +27,7 @@
             </div>
             <a type="button" class="w-100 btn btn-lg btn-primary mt-3 mb-4">Купить за {{ object.price}} руб.</a>
         </div>
+        {% if user.is_authenticated %}
         <footer>
             <div class="card-footer">
                 <div class="product-buttons">
@@ -36,5 +37,7 @@
                 </div>
             </div>
         </footer>
+        {% else %}
+        {% endif %}
     </div>
 </div>
