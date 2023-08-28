@@ -21,16 +21,21 @@ class RegisterView(CreateView):
     template_name = 'users/register.html'
     success_url = reverse_lazy('users:login')
 
-    def form_valid(self, form):
-        new_user = form.save()
+    @staticmethod
+    def send_email_func(email_user):
         send_mail(
             subject='Поздравляю',
-            message='Welcom',
+            message='Welcome',
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[new_user.email],
+            recipient_list=[email_user],
             auth_user=settings.EMAIL_HOST_USER,
-            auth_password=settings.EMAIL_HOST_PASSWORD,
+            auth_password=settings.EMAIL_HOST_PASSWORD
         )
+
+    def form_valid(self, form):
+        new_user = form.save()
+        self.send_email_func(new_user.email)
+
         return super().form_valid(form)
 
 
