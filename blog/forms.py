@@ -10,4 +10,4 @@ class BlogForm(forms.ModelForm):
 
     class Meta:
         model = Blog
-        exclude = ('date_create', 'is_published', 'view_count',)
+        exclude = ('date_create', 'is_published', 'view_count', 'user', )

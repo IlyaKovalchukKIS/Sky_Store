@@ -17,6 +17,8 @@
                 <p class="blog-post-slug">Slug: {{ object.slug }}</p>
                 <p class="blog-post-published">Опубликовано: {% if object.is_published %}Да{% else %}Нет{% endif %}</p>
                 <p class="blog-post-views">Количество просмотров: {{ object.view_count }}</p>
+                <p class="blog-post-published">Владелец: {{ object.user.email }} </p>
+
             </div>
         </div>
     </div>

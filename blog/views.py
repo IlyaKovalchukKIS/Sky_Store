@@ -27,6 +27,7 @@ class BlogCreateView(CreateView):
         if form.is_valid():
             new_blog = form.save()
             new_blog.slug = slugify(new_blog.title)
+            new_blog.user = self.request.user
             new_blog.save()
 
         return super().form_valid(form)
@@ -54,14 +55,15 @@ class BlogDetailView(DetailView):
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('title', 'body', 'preview',)
-
-    # success_url = reverse_lazy('blog:blog_list')
+    form_class = BlogForm
+    template_name = 'blog/blog_form.html'
+    success_url = reverse_lazy('blog:blog_list')
 
     def form_valid(self, form):
         if form.is_valid():
             new_blog = form.save()
             new_blog.slug = slugify(new_blog.title)
+            new_blog.user = self.request.user
             new_blog.save()
 
         return super().form_valid(form)
