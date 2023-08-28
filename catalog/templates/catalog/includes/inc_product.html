@@ -10,7 +10,7 @@
         <div class="card-body">
             <img src="{{ object.preview | my_media }}" width="150" height="100" class="img-fluid"/>
             <ul class="list-unstyled mt-3 mb-4">
-                <li>{{ object.description }}</li>
+                <li>{{ object.description|slice:':50' }}...</li>
             </ul>
             <div class="card-body">
                 <h6>Номер версии: {% if object.is_active %}
