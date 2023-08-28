@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView, TemplateView
 from catalog.models import Product, Category, Version
 from catalog.forms import ProductForm, CategoryForm
 from django.urls import reverse_lazy
@@ -68,10 +68,10 @@ class ProductDetailView(DetailView):
 
         active_version: Version = Version.objects.filter(product=self.object, is_active=True).last()
         if active_version:
-            context['number'] = active_version.version
+            context['version'] = active_version.version
             context['name_version'] = active_version.name_version
         else:
-            context['number'] = None
+            context['version'] = None
             context['name_version'] = None
 
         return context
