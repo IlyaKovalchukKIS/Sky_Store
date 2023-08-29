@@ -1,5 +1,5 @@
 from django import forms
-from catalog.models import Product, Category
+from catalog.models import Product, Category, Version
 
 
 class StyleMixin:
@@ -50,3 +50,10 @@ class CategoryForm(StyleMixin, forms.ModelForm):
             if word in name.lower() or word in description.lower():
                 raise forms.ValidationError(f'В названии или в описании использовано запрещенное слово')
         return cleaned_data
+
+
+class VersionForm(StyleMixin, forms.ModelForm):
+
+    class Meta:
+        model = Version
+        exclude = ('is_active',)
