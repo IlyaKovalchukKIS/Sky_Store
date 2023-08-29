@@ -32,6 +32,11 @@ class ProductCreateView(CreateView):
         else:
             form.save()
 
+        if form.is_valid():
+            new_product = form.save()
+            new_product.user = self.request.user
+            new_product.save()
+
         return super().form_valid(form)
 
 
@@ -80,7 +85,15 @@ class ProductDetailView(DetailView):
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
-    success_url = reverse_lazy('catalog:product_list')
+    success_url = reverse_lazy('catalog:category_list')
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_product = form.save()
+            new_product.user = self.request.user
+            new_product.save()
+
+        return super().form_valid(form)
 
 
 class ProductDeleteView(DeleteView):
@@ -101,6 +114,11 @@ class CategoryCreateView(CreateView):
             new_product.save()
         else:
             form.save()
+
+        if form.is_valid():
+            new_product = form.save()
+            new_product.user = self.request.user
+            new_product.save()
 
         return super().form_valid(form)
 
@@ -134,6 +152,14 @@ class CategoryUpdateView(UpdateView):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('catalog:category_list')
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_product = form.save()
+            new_product.user = self.request.user
+            new_product.save()
+
+        return super().form_valid(form)
 
 
 class CategoryDeleteView(DeleteView):

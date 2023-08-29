@@ -11,12 +11,13 @@
             <ul class="list-unstyled mt-3 mb-4">
                 <li>{{ object.description }}</li>
             </ul>
+            <p>Владелец: {{ object.user.email }}</p>
         </div>
         <div class="text-center">
             <a href="{% url 'catalog:category_view' object.pk %}" type="button"
                class="w-90 btn btn-lg btn-dark mt-3 mb-4">Перейти к товарам категории</a>
         </div>
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and user == object.user %}
         <footer>
             <div class="card-footer">
                 <div class="product-buttons">

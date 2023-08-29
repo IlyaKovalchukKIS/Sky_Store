@@ -81,12 +81,13 @@
             нет информации
             {% endif %}
         </p>
+        <p>Владелец: {{ object.user.email }}</p>
         <footer>
             <div class="card-footer">
                 <div class="product-buttons">
                     <a type="button" class="buy-button">Купить за {{ object.price}} руб.</a>
                     <a href="{% url 'catalog:product_view' object.pk %}" class="view-button">Посмотреть</a>
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated and user == object.user  %}
                     <a href="{% url 'catalog:product_edit' object.pk %}" class="edit-button">Редактировать</a>
                     <a href="{% url 'catalog:product_delete' object.pk %}" class="delete-button">Удалить</a>
                     {% else %}
