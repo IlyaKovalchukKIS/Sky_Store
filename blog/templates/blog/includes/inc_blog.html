@@ -66,6 +66,7 @@
         <img src="{{ object.preview | my_media }}" alt="{{ object.title }}" class="product-image">
         <h3 class="product-title">{{ object.title }}</h3>
         <p class="product-body">{{ object.body|slice:':500' }}...</p>
+        <p>{{ object.user.email }}</p>
 
         <div class="product-buttons">
             <a href="{% url 'blog:blog_view' object.pk %}" class="view-button">Посмотреть</a>
