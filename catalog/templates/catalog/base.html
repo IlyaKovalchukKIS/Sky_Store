@@ -46,10 +46,11 @@
                         </div>
                     </li>
                     {% else %}
-                    <li><a href="{% url 'catalog:category_list' %}" class="nav-link px-2 link-body-emphasis">Все категории</a>
-                    {% endif %}
+                    <li><a href="{% url 'catalog:category_list' %}" class="nav-link px-2 link-body-emphasis">Все
+                        категории</a>
+                        {% endif %}
 
-                    {% if user.is_authenticated %}
+                        {% if user.is_authenticated %}
                     <li>
                         <div class="dropdown">
                             <a class="nav-link px-2 link-body-emphasis dropdown-toggle" href="#" role="button"
@@ -62,6 +63,8 @@
                                 </li>
                                 <li><a href="{% url 'catalog:product_create' %}"
                                        class="dropdown-item">Добавить товар</a></li>
+                                <li><a href="{% url 'catalog:version_create' %}"
+                                       class="dropdown-item">Добавить версию</a></li>
                                 <li><a class="dropdown-item" href="#"></a></li>
                             </ul>
                         </div>
@@ -83,14 +86,13 @@
                                 <li><a href="{% url 'blog:blog_create' %}"
                                        class="dropdown-item">Добавить блог</a></li>
 
-
                                 <li><a class="dropdown-item" href="#"></a></li>
                             </ul>
                         </div>
                     </li>
                     {% else %}
                     <li><a href="{% url 'blog:blog_list' %}" class="nav-link px-2 link-body-emphasis">Все блоги</a>
-                    {% endif %}
+                        {% endif %}
 
                 </ul>
 
