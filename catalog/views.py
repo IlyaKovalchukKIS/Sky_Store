@@ -37,6 +37,7 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         active_version: Version = Version.objects.filter(product=self.object, is_active=True).last()
         if active_version:
+            context['is_active'] = active_version.is_active
             context['version'] = active_version.version
             context['name_version'] = active_version.name_version
         else:
