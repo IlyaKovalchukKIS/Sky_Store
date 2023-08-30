@@ -1,23 +1,6 @@
 from django import forms
 from catalog.models import Product, Category, Version
-
-
-class StyleMixin:
-    __forbidden_words = ['казино',
-                         'криптовалюта',
-                         'крипта',
-                         'биржа',
-                         'дешево',
-                         'бесплатно',
-                         'обман',
-                         'полиция',
-                         'радар']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.forbidden_words = self.__forbidden_words
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+from config.utils import StyleMixin
 
 
 class ProductForm(StyleMixin, forms.ModelForm):
@@ -53,7 +36,6 @@ class CategoryForm(StyleMixin, forms.ModelForm):
 
 
 class VersionForm(StyleMixin, forms.ModelForm):
-
     class Meta:
         model = Version
         exclude = ('is_active',)

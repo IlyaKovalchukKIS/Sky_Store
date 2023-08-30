@@ -1,12 +1,9 @@
 from django import forms
 from blog.models import Blog
+from config.utils import StyleMixin
 
 
-class BlogForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+class BlogForm(StyleMixin, forms.ModelForm):
 
     class Meta:
         model = Blog

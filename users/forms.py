@@ -1,14 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
+from config.utils import StyleMixin
 
 from users.models import User
-
-
-class StyleMixin:
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
 
 
 class UserRegisterForm(StyleMixin, UserCreationForm):
