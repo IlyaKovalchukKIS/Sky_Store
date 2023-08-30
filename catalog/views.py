@@ -6,13 +6,25 @@ from django.urls import reverse_lazy
 from config.utils import ViewMixin
 
 
-def index(request):
-    context = {
-        'object_list': Product.objects.all()[:3],
-        'title': 'Топ товаров'
-    }
+class IndexTemplateView(TemplateView):
+    model = Product
+    success_url = reverse_lazy('catalog:index')
 
-    return render(request, 'catalog/product_list.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = Product.objects.all()
+
+        for product in context['object_list']:
+            active_version: Version = Version.objects.filter(product=product, is_active=True).last()
+            if active_version:
+                product.is_active = active_version.is_active
+                product.version = active_version.version
+                product.name_version = active_version.name_version
+            else:
+                product.version = None
+                product.name_version = None
+
+        return context
 
 
 def contacts(request):
@@ -75,7 +87,7 @@ class ProductUpdateView(ViewMixin, UpdateView):
 
 class ProductDeleteView(DeleteView):
     model = Product
-    success_url = reverse_lazy('catalog:product_list')
+    success_url = reverse_lazy('catalog:category_list')
 
 
 class CategoryCreateView(ViewMixin, CreateView):
