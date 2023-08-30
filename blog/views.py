@@ -5,12 +5,12 @@ from pytils.translit import slugify
 
 from blog.forms import BlogForm
 from blog.models import Blog
-from config.utils import ViewMixin
+from config.utils import ValidMixin
 
 
 # Create your views here.
 
-class BlogCreateView(ViewMixin, CreateView):
+class BlogCreateView(ValidMixin, CreateView):
     model = Blog
     form_class = BlogForm
     template_name = 'blog/blog_form.html'
@@ -37,7 +37,7 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogUpdateView(ViewMixin, UpdateView):
+class BlogUpdateView(ValidMixin, UpdateView):
     model = Blog
     form_class = BlogForm
     template_name = 'blog/blog_form.html'

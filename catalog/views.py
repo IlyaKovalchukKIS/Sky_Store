@@ -3,63 +3,31 @@ from django.views.generic import CreateView, UpdateView, ListView, DetailView, D
 from catalog.models import Product, Category, Version
 from catalog.forms import ProductForm, CategoryForm, VersionForm
 from django.urls import reverse_lazy
-from config.utils import ViewMixin
+from config.utils import ValidMixin, VersionViewMixin
 
 
-class IndexTemplateView(TemplateView):
+class IndexTemplateView(VersionViewMixin, TemplateView):
     model = Product
     success_url = reverse_lazy('catalog:index')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['object_list'] = Product.objects.all()
-
-        for product in context['object_list']:
-            active_version: Version = Version.objects.filter(product=product, is_active=True).last()
-            if active_version:
-                product.is_active = active_version.is_active
-                product.version = active_version.version
-                product.name_version = active_version.name_version
-            else:
-                product.version = None
-                product.name_version = None
-
-        return context
 
 
 def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-class ProductCreateView(ViewMixin, CreateView):
+class ProductCreateView(ValidMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:category_list')
 
 
-class ProductListView(ListView):
+class ProductListView(VersionViewMixin, ListView):
     model = Product
     template_name = 'product_list.html'
-    context_object_name = 'products'
 
     def get_queryset(self):
         category_id = self.kwargs.get('pk')
         return Product.objects.filter(category_id=category_id)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        for product in context['object_list']:
-            active_version: Version = Version.objects.filter(product=product, is_active=True).last()
-            if active_version:
-                product.is_active = active_version.is_active
-                product.version = active_version.version
-                product.name_version = active_version.name_version
-            else:
-                product.version = None
-                product.name_version = None
-
-        return context
 
 
 class ProductDetailView(DetailView):
@@ -67,7 +35,6 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         active_version: Version = Version.objects.filter(product=self.object, is_active=True).last()
         if active_version:
             context['version'] = active_version.version
@@ -79,7 +46,7 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductUpdateView(ViewMixin, UpdateView):
+class ProductUpdateView(ValidMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:category_list')
@@ -90,7 +57,7 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('catalog:category_list')
 
 
-class CategoryCreateView(ViewMixin, CreateView):
+class CategoryCreateView(ValidMixin, CreateView):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('catalog:category_list')
@@ -121,7 +88,7 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class CategoryUpdateView(ViewMixin, UpdateView):
+class CategoryUpdateView(ValidMixin, UpdateView):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('catalog:category_list')
