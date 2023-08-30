@@ -3,6 +3,7 @@ from django.views.generic import CreateView, UpdateView, ListView, DetailView, D
 from catalog.models import Product, Category, Version
 from catalog.forms import ProductForm, CategoryForm, VersionForm
 from django.urls import reverse_lazy
+from config.utils import ViewMixin
 
 
 def index(request):
@@ -18,26 +19,10 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(ViewMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:category_list')
-
-    def form_valid(self, form):
-        image = self.request.FILES.get('image')
-        if image:
-            new_product = form.save(commit=False)
-            new_product.image = image
-            new_product.save()
-        else:
-            form.save()
-
-        if form.is_valid():
-            new_product = form.save()
-            new_product.user = self.request.user
-            new_product.save()
-
-        return super().form_valid(form)
 
 
 class ProductListView(ListView):
@@ -82,18 +67,10 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(ViewMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:category_list')
-
-    def form_valid(self, form):
-        if form.is_valid():
-            new_product = form.save()
-            new_product.user = self.request.user
-            new_product.save()
-
-        return super().form_valid(form)
 
 
 class ProductDeleteView(DeleteView):
@@ -101,26 +78,10 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('catalog:product_list')
 
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(ViewMixin, CreateView):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('catalog:category_list')
-
-    def form_valid(self, form):
-        image = self.request.FILES.get('image')
-        if image:
-            new_product = form.save(commit=False)
-            new_product.image = image
-            new_product.save()
-        else:
-            form.save()
-
-        if form.is_valid():
-            new_product = form.save()
-            new_product.user = self.request.user
-            new_product.save()
-
-        return super().form_valid(form)
 
 
 class CategoryListView(ListView):
@@ -148,18 +109,10 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class CategoryUpdateView(UpdateView):
+class CategoryUpdateView(ViewMixin, UpdateView):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('catalog:category_list')
-
-    def form_valid(self, form):
-        if form.is_valid():
-            new_product = form.save()
-            new_product.user = self.request.user
-            new_product.save()
-
-        return super().form_valid(form)
 
 
 class CategoryDeleteView(DeleteView):

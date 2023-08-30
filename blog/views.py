@@ -5,32 +5,16 @@ from pytils.translit import slugify
 
 from blog.forms import BlogForm
 from blog.models import Blog
+from config.utils import ViewMixin
 
 
 # Create your views here.
 
-class BlogCreateView(CreateView):
+class BlogCreateView(ViewMixin, CreateView):
     model = Blog
     form_class = BlogForm
     template_name = 'blog/blog_form.html'
     success_url = reverse_lazy('blog:blog_list')
-
-    def form_valid(self, form):
-        image = self.request.FILES.get('image')
-        if image:
-            new_blog = form.save(commit=False)
-            new_blog.image = image
-            new_blog.save()
-        else:
-            form.save()
-
-        if form.is_valid():
-            new_blog = form.save()
-            new_blog.slug = slugify(new_blog.title)
-            new_blog.user = self.request.user
-            new_blog.save()
-
-        return super().form_valid(form)
 
 
 class BlogListView(ListView):
@@ -53,20 +37,11 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(ViewMixin, UpdateView):
     model = Blog
     form_class = BlogForm
     template_name = 'blog/blog_form.html'
     success_url = reverse_lazy('blog:blog_list')
-
-    def form_valid(self, form):
-        if form.is_valid():
-            new_blog = form.save()
-            new_blog.slug = slugify(new_blog.title)
-            new_blog.user = self.request.user
-            new_blog.save()
-
-        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('blog:blog_view', args=[self.kwargs.get('pk')])
