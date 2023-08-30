@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from pytils.translit import slugify
 
+from catalog.models import Version, Product
 from config import settings
 
 
@@ -26,7 +27,7 @@ class StyleMixin:
             field.widget.attrs['class'] = 'form-control'
 
 
-class ViewMixin:
+class ValidMixin:
 
     def form_valid(self, form):
         image = self.request.FILES.get('image')
@@ -47,6 +48,25 @@ class ViewMixin:
             new_object.save()
 
         return super().form_valid(form)
+
+
+class VersionViewMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['object_list'] = Product.objects.all() if not self.kwargs.get('pk') else context['object_list']
+
+        for product in context['object_list']:
+            active_version: Version = Version.objects.filter(product=product, is_active=True).last()
+            if active_version:
+                product.is_active = active_version.is_active
+                product.version = active_version.version
+                product.name_version = active_version.name_version
+            else:
+                product.version = None
+                product.name_version = None
+
+        return context
 
 
 def generate_new_password(request):
