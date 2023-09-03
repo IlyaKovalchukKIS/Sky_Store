@@ -32,8 +32,12 @@
             <p>Владелец товара: {{ object.user.email }}</p>
 
             <!-- Кнопки "Удалить", "Редактировать", "Купить" -->
+            {% if perms.catalog.change_product or perms.is_superuser or user == object.user %}
             <a href="{% url 'catalog:product_delete' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
+            {% endif %}
+            {% if perms.catalog.change_product %}
             <a href="{% url 'catalog:product_edit' object.pk %}" type="button" class="btn btn-primary">Редактировать</a>
+            {% endif %}
             <button type="button" class="btn btn-success">Купить</button>
         </div>
     </div>

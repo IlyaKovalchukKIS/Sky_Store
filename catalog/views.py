@@ -4,6 +4,7 @@ from catalog.models import Product, Category, Version
 from catalog.forms import ProductForm, CategoryForm, VersionForm
 from django.urls import reverse_lazy
 from config.utils import ValidMixin, VersionViewMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 class IndexTemplateView(VersionViewMixin, TemplateView):
@@ -15,9 +16,10 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-class ProductCreateView(ValidMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, ValidMixin, CreateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.add_product'
     success_url = reverse_lazy('catalog:category_list')
 
 
@@ -47,20 +49,23 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductUpdateView(ValidMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ValidMixin,  UpdateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.change_product'
     success_url = reverse_lazy('catalog:category_list')
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Product
+    permission_required = 'catalog.delete_product'
     success_url = reverse_lazy('catalog:category_list')
 
 
-class CategoryCreateView(ValidMixin, CreateView):
+class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, ValidMixin,  CreateView):
     model = Category
     form_class = CategoryForm
+    permission_required = 'category.add_category'
     success_url = reverse_lazy('catalog:category_list')
 
 
@@ -89,18 +94,21 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class CategoryUpdateView(ValidMixin, UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ValidMixin,  UpdateView):
     model = Category
     form_class = CategoryForm
+    permission_required = 'catalog.change_category'
     success_url = reverse_lazy('catalog:category_list')
 
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Category
+    permission_required = 'catalog.delete_category'
     success_url = reverse_lazy('catalog:category_list')
 
 
-class VersionCreateView(CreateView):
+class VersionCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     model = Version
     form_class = VersionForm
+    permission_required = 'catalog.create_version'
     success_url = reverse_lazy('catalog:category_list')

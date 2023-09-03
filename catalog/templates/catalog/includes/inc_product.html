@@ -87,10 +87,11 @@
                 <div class="product-buttons">
                     <a type="button" class="buy-button">Купить за {{ object.price}} руб.</a>
                     <a href="{% url 'catalog:product_view' object.pk %}" class="view-button">Посмотреть</a>
-                    {% if user.is_authenticated and user == object.user  %}
+                    {% if perms.catalog.change_product or perms.is_superuser or user == object.user %}
                     <a href="{% url 'catalog:product_edit' object.pk %}" class="edit-button">Редактировать</a>
+                    {% endif %}
+                    {% if perms.catalog.delete_product or perms.is_superuser %}
                     <a href="{% url 'catalog:product_delete' object.pk %}" class="delete-button">Удалить</a>
-                    {% else %}
                     {% endif %}
                 </div>
             </div>
