@@ -6,7 +6,8 @@ from config.utils import StyleMixin
 class ProductForm(StyleMixin, forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ('date_create', 'view_count', 'user',)
+        fields = '__all__'
+        exclude = ('date_create', 'view_count', 'user', 'is_active')
 
     def clean(self):
         cleaned_data = super().clean()

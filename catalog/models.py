@@ -30,6 +30,7 @@ class Product(models.Model):
     date_creation = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     date_last_change = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', **NULLABLE)
+    is_active = models.BooleanField(default=False, verbose_name='активно')
 
     def __str__(self):
         return f'{self.name} {self.category}'
