@@ -2,6 +2,7 @@ import os
 import random
 
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Permission
 from django.core.mail import send_mail
 
 from django.shortcuts import render, redirect
@@ -12,6 +13,8 @@ from django.contrib.auth.views import LoginView
 from config import settings
 from users.forms import UserRegisterForm, UserProfileForm
 from users.models import User
+
+product_permissions = ['catalog.add_product', 'catalog.change_product']
 
 
 # Create your views here.
@@ -33,7 +36,12 @@ class RegisterView(CreateView):
         )
 
     def form_valid(self, form):
+        permissions = ['add_product', 'change_product']
         new_user = form.save()
+        for perm in permissions:
+            perm_user: Permission = Permission.objects.get(codename=perm)
+            new_user.user_permissions.add(perm_user)
+        new_user.save()
         self.send_email_func(new_user.email)
 
         return super().form_valid(form)
