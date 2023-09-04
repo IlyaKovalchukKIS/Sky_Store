@@ -4,7 +4,7 @@ from catalog.models import Product, Category, Version
 from catalog.forms import ProductForm, CategoryForm, VersionForm
 from django.urls import reverse_lazy
 from config.utils import ValidMixin, VersionViewMixin
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 
 class IndexTemplateView(VersionViewMixin, TemplateView):
@@ -49,11 +49,18 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ValidMixin,  UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, ValidMixin,  UpdateView):
     model = Product
     form_class = ProductForm
     permission_required = 'catalog.change_product'
     success_url = reverse_lazy('catalog:category_list')
+
+    def test_func(self):
+        # Проверка, является ли текущий пользователь создателем продукта или модератором
+        product = self.get_object()
+        return (self.request.user == product.user
+                or self.request.user.is_staff
+                or self.request.user.is_superuser)
 
 
 class ProductDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
