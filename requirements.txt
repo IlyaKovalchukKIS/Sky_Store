@@ -4,6 +4,7 @@ asttokens==2.2.1
 backcall==0.2.0
 certifi==2023.7.22
 charset-normalizer==3.2.0
+configparser==6.0.0
 decorator==5.1.1
 Django==4.2.4
 django-countries==7.5.1
@@ -21,7 +22,9 @@ psycopg2==2.9.7
 ptyprocess==0.7.0
 pure-eval==0.2.2
 Pygments==2.16.1
+python-dotenv==1.0.0
 pytils==0.4.1
+redis==5.0.0
 requests==2.31.0
 six==1.16.0
 sqlparse==0.4.4
@@ -30,9 +33,3 @@ traitlets==5.9.0
 typing_extensions==4.7.1
 urllib3==2.0.4
 wcwidth==0.2.6
-
-pip~=22.3.1
-configparser~=6.0.0
-wheel~=0.38.4
-setuptools~=65.5.1
-python-dotenv~=1.0.0
