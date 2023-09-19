@@ -49,7 +49,7 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, ValidMixin,  UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, ValidMixin, UpdateView):
     model = Product
     form_class = ProductForm
     permission_required = 'catalog.change_product'
@@ -69,7 +69,7 @@ class ProductDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView)
     success_url = reverse_lazy('catalog:category_list')
 
 
-class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, ValidMixin,  CreateView):
+class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, ValidMixin, CreateView):
     model = Category
     form_class = CategoryForm
     permission_required = 'category.add_category'
@@ -101,7 +101,7 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ValidMixin,  UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, ValidMixin, UpdateView):
     model = Category
     form_class = CategoryForm
     permission_required = 'catalog.change_category'

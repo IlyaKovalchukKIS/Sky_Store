@@ -16,8 +16,8 @@
         </div>
         <div class="col-md-7">
             <!-- Описание товара -->
-            <h4>{{ object.name }}</h4>
-            <p>{{ object.description }}</p>
+            <h4>{{ subject_list.name }}</h4>
+            <p>{{ subject_list.description }}</p>
             <p>Версия товара:
                 {% if is_active %}
                 {{ version }}
@@ -29,13 +29,13 @@
                 {% else %}
                 нет информации
                 {% endif %}</p>
-            <p>Владелец товара: {{ object.user.email }}</p>
+            <p>Владелец товара: {{ subject_list.user.email }}</p>
 
             <!-- Кнопки "Удалить", "Редактировать", "Купить" -->
-            {% if perms.catalog.change_product or perms.is_superuser or user == object.user %}
+            {% if perms.catalog.change_product or perms.is_superuser or user == subject_list.user %}
             <a href="{% url 'catalog:product_delete' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
             {% endif %}
-            {% if object.user == user or perms.catalog.change_product or user.is_superuser %}
+            {% if subject_list.user == user or perms.catalog.change_product or user.is_superuser %}
             <a href="{% url 'catalog:product_edit' object.pk %}" type="button" class="btn btn-primary">Редактировать</a>
             {% endif %}
             <button type="button" class="btn btn-success">Купить</button>
