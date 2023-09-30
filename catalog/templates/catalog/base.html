@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>SkyStore</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
@@ -71,6 +71,26 @@
                     </li>
                     {% else %}
                     {% endif %}
+
+                    <li>
+                        <div class="dropdown">
+                            <a class="nav-link px-2 link-body-emphasis dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Рассылки
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'mailing:mailing_create' %}">
+                                    Создать сообщение для рассылки</a></li>
+                                <li><a href="{% url 'mailing:message_list' %}"
+                                       class="dropdown-item">Все сообщения</a></li>
+
+                                <li><a href="{% url 'mailing:settings_create' %}"
+                                       class="dropdown-item">Создать рассылку</a></li>
+                                <li><a class="dropdown-item" href="{% url 'mailing:settings_list' %}">Все рассылки</a></li>
+                            </ul>
+                        </div>
+                    </li>
 
                     {% if user.is_authenticated %}
                     <li>

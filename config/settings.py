@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'blog',
     'catalog',
     'users',
+    'django_crontab',
+    'mailing',
 ]
 
 MIDDLEWARE = [
@@ -154,3 +156,7 @@ if CACHE_ENABLED:
             'LOCATION': 'redis://127.0.0.1:6379',
         }
     }
+
+CRONJOBS = [
+    ('* * * * *', 'mailing.services.send_email'),
+]
