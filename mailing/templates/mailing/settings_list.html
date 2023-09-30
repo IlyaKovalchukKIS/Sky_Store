@@ -1,0 +1,62 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<head>
+    <title>Таблица</title>
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: lightgray;
+    }
+</style>
+
+<body>
+
+<table>
+
+    <thead>
+    <tr>
+        <th>Доступные команды</th>
+        <th>Название рассылки</th>
+        <th>Название сообщения</th>
+        <th>Время отправки рассылки (часы)</th>
+        <th>Периодичность отправки рассылки (1 раз в x дней)</th>
+        <th>Статус рассылки</th>
+
+    </tr>
+    </thead>
+    {% for object in object_list %}
+    <tbody>
+    <tr>
+        <td>
+            <div class="btn-group" role="group">
+                <a href="{% url 'mailing:settings_detail' object.pk %}" type="button" class="btn btn-primary">Посмотреть</a>
+                <a href="{% url 'mailing:settings_update' object.pk %}" type="button" class="btn btn-secondary">Редактировать</a>
+                <a href="{% url 'mailing:settings_delete' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
+            </div>
+        </td>
+        <td>{{ object.name }}</td>
+        <td>
+            <a href="{% url 'mailing:message_detail' object.pk %}" class="view-button">{{ object.message }}</a>
+        </td>
+        <td>{{ object.sending_time }}</td>
+        <td>{{ object.frequency }}</td>
+        <td>{{ object.status }}</td>
+
+    </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+</body>
+{% endblock %}

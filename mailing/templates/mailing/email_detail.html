@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block content %}
+<head>
+    <title>Страница товара</title>
+    <!-- Подключение стилей Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<div class="container mt-5">
+    <div class="row">
+            <!-- Описание товара -->
+            <h4>{{ object.title }}</h4>
+            <p>{{ object.text }}</p>
+            <!-- Кнопки "Удалить", "Редактировать", "Купить" -->
+            <a href="{% url 'mailing:message_delete' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
+            <a href="{% url 'mailing:message_update' object.pk %}" type="button" class="btn btn-primary">Редактировать</a>
+            <button type="button" class="btn btn-success">Купить</button>
+    </div>
+</div>
+
+<!-- Подключение скриптов Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
