@@ -8,7 +8,7 @@ from mailing.models import Settings, Log
 
 def send_email():
     current_time = timezone.now().time().hour
-    settings = Settings.objects.filter(status='created', sending_time=current_time).prefetch_related('user')
+    settings = Settings.objects.filter(status='launched', sending_time=current_time).prefetch_related('user')
 
     for setting in settings:
         recipients = setting.user.all()

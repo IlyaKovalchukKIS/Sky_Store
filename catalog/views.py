@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView, TemplateView
 from catalog.models import Product, Category, Version
+from mailing.models import Settings, Email
+from users.models import User
+from blog.models import Blog
 from catalog.forms import ProductForm, CategoryForm, VersionForm
 from django.urls import reverse_lazy
 from config.utils import ValidMixin, VersionViewMixin
@@ -10,6 +13,26 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 class IndexTemplateView(VersionViewMixin, TemplateView):
     model = Product
     success_url = reverse_lazy('catalog:index')
+
+
+def index(request):
+    settings = Settings.objects.all()
+    users = settings.values_list('user', flat=True)
+
+    user_emails = []
+    for i in users:
+        user = User.objects.get(id=i)
+        user_emails.append(user.email)
+
+    count_settings_launched = settings.filter(status='launched')
+
+    context = {
+        'count_settings': len(settings),
+        'count_settings_active': len(count_settings_launched),
+        'user_emails': len(user_emails),
+        'blog_post': Blog.objects.all()[:3],
+    }
+    return render(request, 'catalog/index.html', context)
 
 
 def contacts(request):
