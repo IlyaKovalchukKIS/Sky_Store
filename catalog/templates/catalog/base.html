@@ -72,6 +72,7 @@
                     {% else %}
                     {% endif %}
 
+                    {% if user.is_authenticated %}
                     <li>
                         <div class="dropdown">
                             <a class="nav-link px-2 link-body-emphasis dropdown-toggle" href="#" role="button"
@@ -80,17 +81,29 @@
                             </a>
 
                             <ul class="dropdown-menu">
+
+                                {% if perms.mailing.add_email %}
                                 <li><a class="dropdown-item" href="{% url 'mailing:mailing_create' %}">
                                     Создать сообщение для рассылки</a></li>
+                                {% endif %}
+
                                 <li><a href="{% url 'mailing:message_list' %}"
                                        class="dropdown-item">Все сообщения</a></li>
 
+                                {% if perms.mailing.add_settings %}
                                 <li><a href="{% url 'mailing:settings_create' %}"
                                        class="dropdown-item">Создать рассылку</a></li>
-                                <li><a class="dropdown-item" href="{% url 'mailing:settings_list' %}">Все рассылки</a></li>
+                                {% endif %}
+
+                                <li><a class="dropdown-item" href="{% url 'mailing:settings_list' %}">Все рассылки</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'users:all_users_register' %}">Все пользователи</a>
+                                </li>
                             </ul>
                         </div>
                     </li>
+                    {% else %}
+                    {% endif %}
 
                     {% if user.is_authenticated %}
                     <li>

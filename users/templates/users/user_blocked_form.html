@@ -1,0 +1,10 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<form method="post">
+    <div>Заблокировать пользователя "{{ object.user.email }}" ?</div>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-danger" type="submit">Заблокировать/Разблокировать</button>
+</form>
+{% endblock %}
