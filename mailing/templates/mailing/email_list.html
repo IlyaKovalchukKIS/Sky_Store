@@ -23,7 +23,6 @@
 <body>
 
 <table>
-
     <thead>
     <tr>
         <th>Доступные команды</th>
@@ -36,9 +35,15 @@
     <tr>
         <td>
             <div class="btn-group" role="group">
+                <!-- Проверка прав доступа на редактирование -->
+                {% if perms.mailing.change_email %}
+                    <a href="{% url 'mailing:message_update' object.pk %}" type="button" class="btn btn-secondary">Редактировать</a>
+                {% endif %}
+                <!-- Проверка прав доступа на удаление -->
+                {% if perms.mailing.delete_email %}
+                    <a href="{% url 'mailing:message_delete' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
+                {% endif %}
                 <a href="{% url 'mailing:message_detail' object.pk %}" type="button" class="btn btn-primary">Посмотреть</a>
-                <a href="{% url 'mailing:message_update' object.pk %}" type="button" class="btn btn-secondary">Редактировать</a>
-                <a href="{% url 'mailing:message_delete' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
             </div>
         </td>
         <td>{{ object.title }}</td>

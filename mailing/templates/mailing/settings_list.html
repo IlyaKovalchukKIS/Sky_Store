@@ -40,9 +40,18 @@
     <tr>
         <td>
             <div class="btn-group" role="group">
-                <a href="{% url 'mailing:settings_detail' object.pk %}" type="button" class="btn btn-primary">Посмотреть</a>
+
+                <a href="{% url 'mailing:settings_detail' object.pk %}" type="button"
+                   class="btn btn-primary">Посмотреть</a>
+
+                {% if perms.mailing.change_settings %}
                 <a href="{% url 'mailing:settings_update' object.pk %}" type="button" class="btn btn-secondary">Редактировать</a>
+                {% endif %}
+
+                {% if perms.mailing.delete_settings %}
                 <a href="{% url 'mailing:settings_delete' object.pk %}" type="button" class="btn btn-danger">Удалить</a>
+                {% endif %}
+
             </div>
         </td>
         <td>{{ object.name }}</td>

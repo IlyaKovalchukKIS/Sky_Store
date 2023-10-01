@@ -1,0 +1,79 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<head>
+    <title>Таблица</title>
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: lightgray;
+    }
+</style>
+
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>Email</th>
+        <th>Имя пользователя</th>
+        <th>Номер телефона</th>
+        <th>Аватар</th>
+        <th>Страна</th>
+        <th>Статус блокировки</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in user_data %}
+    <tr>
+        <td>{{ data.user.email }}</td>
+
+        {% if data.user.username %}
+        <td>{{ data.user.username }}</td>
+        {% else %}
+        <td>Не указано</td>
+        {% endif %}
+
+
+        {% if data.user.phone %}
+        <td>{{ data.user.phone }}</td>
+        {% else %}
+        <td>Не указан</td>
+        {% endif %}
+
+        {% if data.user.avatar %}
+        <td>{{ data.user.avatar }}</td>
+        {% else %}
+        <td>Не выбран</td>
+        {% endif %}
+
+        {% if data.user.country %}
+        <td>{{ data.user.country }}</td>
+        {% else %}
+        <td>Не указана</td>
+        {% endif %}
+
+        {% if perms.users.is_blocked %}
+        <td>
+            <a href="{% url 'users:user_block' data.is_blocked.pk %}">{{ data.is_blocked.is_blocked }}</a>
+        </td>
+        {% else %}
+        <td>{{ data.is_blocked.is_blocked }}</td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+{% endblock %}
