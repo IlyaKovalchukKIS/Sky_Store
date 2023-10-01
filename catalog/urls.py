@@ -4,12 +4,12 @@ from django.views.decorators.cache import cache_page
 from catalog.apps import CatalogConfig
 from catalog.views import ProductCreateView, ProductListView, ProductDetailView, ProductUpdateView, \
     ProductDeleteView, CategoryCreateView, CategoryDeleteView, CategoryUpdateView, CategoryDetailView, CategoryListView, \
-    contacts, VersionCreateView, IndexTemplateView
+    contacts, VersionCreateView, IndexTemplateView, index
 
 app_name = CatalogConfig.name
 
 urlpatterns = [
-    path('', IndexTemplateView.as_view(template_name='catalog/product_list.html'), name='index'),
+    path('', index, name='index'),
     path('contacts/', contacts, name='contacts'),
 
     path('product/create/', ProductCreateView.as_view(), name='product_create'),

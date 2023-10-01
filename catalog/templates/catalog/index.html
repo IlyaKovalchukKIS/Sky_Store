@@ -1,0 +1,44 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: lightgray;
+    }
+</style>
+<div class="col-12">
+
+    <table>
+        <thead>
+        <tr>
+            <th>Количество рассылок всего</th>
+            <th>Количество активных рассылок</th>
+            <th>Количество уникальных клиентов для рассылок</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ count_settings }}</td>
+            <td>{{ count_settings_active }}</td>
+            <td>{{ user_emails }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div class="row mt-5">
+    {% for object in blog_post %}
+    {% include 'blog/includes/inc_blog.html' %}
+    {% endfor %}
+</div>
+{% endblock %}
