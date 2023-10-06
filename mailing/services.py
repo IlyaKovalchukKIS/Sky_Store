@@ -7,10 +7,13 @@ from mailing.models import Settings, Log
 
 
 def send_email():
-    current_time = timezone.now().time().hour
-    settings = Settings.objects.filter(status='launched', sending_time=current_time).prefetch_related('user')
+    current_time = timezone.now()
+    settings = Settings.objects.filter(status='launched', sending_time=current_time.time().hour).prefetch_related('user')
 
     for setting in settings:
+        if not setting.start_time < current_time and not setting.ending_time > current_time:
+            return
+
         recipients = setting.user.all()
         email_message = setting.message
         try:
