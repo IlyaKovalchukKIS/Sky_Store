@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 from blog.models import NULLABLE
@@ -40,6 +42,8 @@ class Settings(models.Model):
     user = models.ManyToManyField(User, verbose_name='пользователи')
     sending_time = models.CharField(max_length=20, choices=SENDING_TIME_CHOICES, verbose_name='время рассылки')
     frequency = models.CharField(max_length=20, choices=FREQUENCY_CHOICES, verbose_name='периодичность рассылки')
+    start_time = models.DateTimeField(verbose_name='время начала рассылки', **NULLABLE)
+    ending_time = models.DateTimeField(verbose_name='время окончания рассылки', **NULLABLE)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, verbose_name='статус')
     message = models.ForeignKey(Email, on_delete=models.CASCADE, verbose_name='сообщение', **NULLABLE)
 
